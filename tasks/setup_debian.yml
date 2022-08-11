@@ -34,7 +34,7 @@
 
 - name: 'add DataDog repository'
   apt_repository:
-    repo: 'deb https://apt.datadoghq.com/ stable 6'
+    repo: 'deb https://apt.datadoghq.com/ stable {{datadog_agent_version}}'
     filename: 'datadog'
     state: present
     update_cache: true
