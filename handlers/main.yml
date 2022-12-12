@@ -2,13 +2,13 @@
 - name: 'handler_restart_datadog'
   systemd:
     state: restarted
-    name: '{{datadog_svc_name}}'
+    name: '{{ datadog_svc_name }}'
   become: true
 
 - name: 'handler_restart_datadog_old'  # alt handler for Ubuntu 14
   shell: (/opt/datadog-agent/bin/agent/agent stop) && (/opt/datadog-agent/bin/agent/agent run > /var/log/datadog/agent.log 2>&1 &)
   become: true
-  become_user: '{{datadog_owner}}'
+  become_user: '{{ datadog_owner }}'
   when: false
   tags: skip_ansible_lint
 ...
