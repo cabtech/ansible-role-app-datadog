@@ -1,5 +1,10 @@
 ---
+# --------------------------------
+
 dependencies:
 - src: git+https://github.com/cabtech/ansible-role-util-facts.git
+  version: "1.0.1"
   tags: always
+
+# --------------------------------
 ...
