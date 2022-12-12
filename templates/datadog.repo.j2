@@ -1,9 +1,9 @@
 [datadog]
 name=Datadog, Inc.
-baseurl=https://yum.{{datadog_repo_url}}/stable/{{datadog_agent_version}}/{{datadog_arch}}/
+baseurl=https://yum.{{ datadog_repo_url }}/stable/{{ datadog_agent_version }}/{{ datadog_arch }}/
 enabled=1
 gpgcheck=1
 repo_gpgcheck=0
 priority=1
-gpgkey=https://yum.{{datadog_repo_url}}/DATADOG_RPM_KEY.public
-       https://yum.{{datadog_repo_url}}/DATADOG_RPM_KEY_{{datadog_rpm_key}}.public
+gpgkey=https://yum.{{ datadog_repo_url }}/DATADOG_RPM_KEY.public
+       https://yum.{{ datadog_repo_url }}/DATADOG_RPM_KEY_{{ datadog_rpm_key }}.public

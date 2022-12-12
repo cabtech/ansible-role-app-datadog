@@ -1,7 +1,7 @@
 ---
 # --------------------------------
 
-- name: 'include {{ct_family}} tasks'
+- name: 'include {{ ct_family }} tasks'
   include_tasks: setup-{{ct_family}}.yml
   when:
   - ct_family == 'debian' or ct_family == 'redhat'

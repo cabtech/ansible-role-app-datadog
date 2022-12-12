@@ -4,34 +4,34 @@
 - name: 'copy over disk config file'
   copy:
     src: disk.yaml
-    dest: '{{datadog_etc_dir}}/conf.d/disk.d/disk.yaml'
+    dest: '{{ datadog_etc_dir }}/conf.d/disk.d/disk.yaml'
     mode: '0644'
-    owner: '{{datadog_owner}}'
-    group: '{{datadog_group}}'
+    owner: '{{ datadog_owner }}'
+    group: '{{ datadog_group }}'
   become: true
-  notify: '{{datadog_handler}}'
+  notify: '{{ datadog_handler }}'
   tags: [ct-datadog]
 
 - name: 'copy over NTP config file'
   copy:
     src: ntp.yaml
-    dest: '{{datadog_etc_dir}}/conf.d/ntp.d/ntp.yaml'
+    dest: '{{ datadog_etc_dir }}/conf.d/ntp.d/ntp.yaml'
     mode: '0644'
-    owner: '{{datadog_owner}}'
-    group: '{{datadog_group}}'
+    owner: '{{ datadog_owner }}'
+    group: '{{ datadog_group }}'
   become: true
-  notify: '{{datadog_handler}}'
+  notify: '{{ datadog_handler }}'
   tags: [ct-datadog]
 
 - name: 'render system probe config file'
   template:
     src: system-probe.yaml.j2
-    dest: '{{datadog_etc_dir}}/system-probe.yaml'
+    dest: '{{ datadog_etc_dir }}/system-probe.yaml'
     mode: '0644'
-    owner: '{{datadog_owner}}'
-    group: '{{datadog_group}}'
+    owner: '{{ datadog_owner }}'
+    group: '{{ datadog_group }}'
   become: true
-  notify: '{{datadog_handler}}'
+  notify: '{{ datadog_handler }}'
   tags: [ct-datadog]
 
 - name: 'add docker group to OS'
@@ -42,11 +42,11 @@
   become: true
   tags: [ct-datadog]
 
-- name: 'add {{datadog_owner}} to docker OS group'
+- name: 'add {{ datadog_owner }} to docker OS group'
   user:
     append: true
     groups: docker
-    name: '{{datadog_owner}}'
+    name: '{{ datadog_owner }}'
     state: present
   when:
   - datadog_add_docker_group
@@ -57,13 +57,13 @@
 - name: 'copy over Docker daemon config file'
   copy:
     src: docker_daemon.yaml
-    dest: '{{datadog_etc_dir}}/conf.d/docker.d/docker_daemon.yaml'
+    dest: '{{ datadog_etc_dir }}/conf.d/docker.d/docker_daemon.yaml'
     mode: '0644'
-    owner: '{{datadog_owner}}'
-    group: '{{datadog_group}}'
+    owner: '{{ datadog_owner }}'
+    group: '{{ datadog_group }}'
   when: (ct_container|default('null')) == 'docker'
   become: true
-  notify: '{{datadog_handler}}'
+  notify: '{{ datadog_handler }}'
   tags: [ct-datadog]
 
 - name: 'install logrotate config'

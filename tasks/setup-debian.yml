@@ -25,7 +25,7 @@
 - name: 'add public key of DataDog repo'
   apt_key:
     keyserver: hkp://keyserver.ubuntu.com:80
-    id: '{{datadog_pubkey_id}}'
+    id: '{{ datadog_pubkey_id }}'
     validate_certs: true
     state: present
   become: true
@@ -34,7 +34,7 @@
 
 - name: 'add DataDog repository'
   apt_repository:
-    repo: 'deb https://apt.datadoghq.com/ stable {{datadog_agent_version}}'
+    repo: 'deb https://apt.datadoghq.com/ stable {{ datadog_agent_version }}'
     filename: 'datadog'
     state: present
     update_cache: true
@@ -48,7 +48,7 @@
 - name: 'install DataDog agent'
   apt:
     name: datadog-agent
-    state: '{{datadog_state}}'
+    state: '{{ datadog_state }}'
   become: true
   tags:
   - ct-datadog
@@ -56,28 +56,28 @@
 - name: 'render template for DataDog config file (no_log)'
   template:
     src: datadog.yaml.j2
-    dest: '{{datadog_cfg_file}}'
+    dest: '{{ datadog_cfg_file }}'
     mode: '0644'
-    owner: '{{datadog_owner}}'
-    group: '{{datadog_group}}'
+    owner: '{{ datadog_owner }}'
+    group: '{{ datadog_group }}'
   when: datadog_state == 'present'
   no_log: true
   become: true
-  notify: '{{datadog_handler}}'
+  notify: '{{ datadog_handler }}'
   tags:
   - ct-datadog
 
 # --------------------------------
 
-- name: 'set DataDog service = ({{datadog_agent_status}}, {{datadog_agent_enabled}})'
+- name: 'set DataDog service = ({{ datadog_agent_status }}, {{ datadog_agent_enabled }})'
   systemd:
-    name: '{{item}}'
-    state: '{{datadog_agent_status}}'
-    enabled: '{{datadog_agent_enabled}}'
-    masked: '{{datadog_agent_enabled | ternary(false, true)}}'
+    name: '{{ item }}'
+    state: '{{ datadog_agent_status }}'
+    enabled: '{{ datadog_agent_enabled }}'
+    masked: '{{ datadog_agent_enabled | ternary(false, true)}}'
   become: true
   with_items:
-  - '{{datadog_svc_name}}'
+  - '{{ datadog_svc_name }}'
   - 'datadog-agent-process'
   - 'datadog-agent-trace'
   tags:

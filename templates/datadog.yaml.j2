@@ -1,26 +1,26 @@
 ---
 # MANAGED_BY_ANSIBLE
-api_key: {{datadog_api_key}}
-dd_url: https://{{datadog_endpoint}}
-hostname: {{inventory_hostname}}
+api_key: {{ datadog_api_key }}
+dd_url: https://{{ datadog_endpoint }}
+hostname: {{ inventory_hostname }}
 #
 process_config:
-  enabled: "{{datadog_proc_monitoring | bool | lower}}"
+  enabled: "{{ datadog_proc_monitoring | bool | lower }}"
 #
 tags:
 {% if hostvars[inventory_hostname]['datadog'] is defined %}
 {% for key, value in hostvars[inventory_hostname]['datadog'].items() %}
-- {{key}}:{{value}}
+- {{ key }}:{{ value }}
 {% endfor %}
 {% endif %}
 {% if datadog_tags is defined %}
 {% for key, value in datadog_tags.items() %}
-- {{key}}:{{value}}
+- {{ key }}:{{ value }}
 {% endfor %}
 {% endif %}
 {% if datadog_extra_tags is defined %}
 {% for key, value in datadog_extra_tags.items() %}
-- {{key}}:{{value}}
+- {{ key }}:{{ value }}
 {% endfor %}
 {% endif %}
 {% if hostvars[inventory_hostname]['datadog'] is not defined %}
