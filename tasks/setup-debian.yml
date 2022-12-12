@@ -1,87 +1,80 @@
 ---
 # --------------------------------
 
-- name: 'override service name for Ubuntu 14'
-  set_fact:
+- name: "Override service name for Ubuntu 14"
+  ansible.builtin.set_fact:
     datadog_svc_name: datadog-agent
-    datadog_handler: handler_restart_datadog_old
+    datadog_handler: Handler_Restart_Datadog_Old
   when:
-  - ct_distro == 'ubuntu'
+  - ct_distro == "ubuntu"
   - ct_distro_major|int == 14
-  tags:
-  - ct-datadog
+  tags: [ct-datadog]
 
-- name: 'update package cache and install pre-requisites'
-  apt:
+- name: "Update package cache and install pre-requisites"
+  ansible.builtin.apt:
     name: apt-transport-https
     update_cache: false
     state: present
   become: true
-  tags:
-  - ct-datadog
+  tags: [ct-datadog]
 
 # --------------------------------
 
-- name: 'add public key of DataDog repo'
-  apt_key:
+- name: "Add public key of DataDog repo"
+  ansible.builtin.apt_key:
     keyserver: hkp://keyserver.ubuntu.com:80
-    id: '{{ datadog_pubkey_id }}'
+    id: "{{ datadog_pubkey_id }}"
     validate_certs: true
     state: present
   become: true
-  tags:
-  - ct-datadog
+  tags: [ct-datadog]
 
-- name: 'add DataDog repository'
-  apt_repository:
-    repo: 'deb https://apt.datadoghq.com/ stable {{ datadog_agent_version }}'
-    filename: 'datadog'
+- name: "Add DataDog repository"
+  ansible.builtin.apt_repository:
+    repo: "deb https://apt.datadoghq.com/ stable {{ datadog_agent_version }}"
+    filename: datadog
     state: present
     update_cache: true
     validate_certs: true
   become: true
-  tags:
-  - ct-datadog
+  tags: [ct-datadog]
 
 # --------------------------------
 
-- name: 'install DataDog agent'
-  apt:
+- name: "Install DataDog agent"
+  ansible.builtin.apt:
     name: datadog-agent
-    state: '{{ datadog_state }}'
+    state: "{{ datadog_state }}"
   become: true
-  tags:
-  - ct-datadog
+  tags: [ct-datadog]
 
-- name: 'render template for DataDog config file (no_log)'
-  template:
+- name: "Render template for DataDog config file (no_log)"
+  ansible.builtin.template:
     src: datadog.yaml.j2
-    dest: '{{ datadog_cfg_file }}'
-    mode: '0644'
-    owner: '{{ datadog_owner }}'
-    group: '{{ datadog_group }}'
-  when: datadog_state == 'present'
+    dest: "{{ datadog_cfg_file }}"
+    mode: "0600"
+    owner: "{{ datadog_owner }}"
+    group: "{{ datadog_group }}"
+  when: datadog_state == "present"
   no_log: true
   become: true
-  notify: '{{ datadog_handler }}'
-  tags:
-  - ct-datadog
+  notify: "{{ datadog_handler }}"
+  tags: [ct-datadog]
 
 # --------------------------------
 
-- name: 'set DataDog service = ({{ datadog_agent_status }}, {{ datadog_agent_enabled }})'
-  systemd:
-    name: '{{ item }}'
-    state: '{{ datadog_agent_status }}'
-    enabled: '{{ datadog_agent_enabled }}'
-    masked: '{{ datadog_agent_enabled | ternary(false, true)}}'
+- name: "Configure DataDog service status={{ datadog_agent_status }} enabled={{ datadog_agent_enabled | ternary(false, true) }}"
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: "{{ datadog_agent_status }}"
+    enabled: "{{ datadog_agent_enabled }}"
+    masked: "{{ datadog_agent_enabled | ternary(false, true) }}"
   become: true
   with_items:
-  - '{{ datadog_svc_name }}'
-  - 'datadog-agent-process'
-  - 'datadog-agent-trace'
-  tags:
-  - ct-datadog
+  - "{{ datadog_svc_name }}"
+  - "datadog-agent-process"
+  - "datadog-agent-trace"
+  tags: [ct-datadog]
 
 # --------------------------------
 ...

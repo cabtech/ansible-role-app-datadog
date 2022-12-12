@@ -9,7 +9,7 @@ datadog_enable_system_probe: false
 datadog_endpoint: 'app.datadoghq.eu'
 datadog_etc_dir: /etc/datadog-agent
 datadog_group: dd-agent
-datadog_handler: handler_restart_datadog
+datadog_handler: Handler_Restart_Datadog
 datadog_owner: dd-agent
 datadog_proc_monitoring: false
 datadog_pubkey_id: 382E94DE

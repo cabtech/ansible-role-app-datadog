@@ -1,24 +1,22 @@
 ---
-- name: '{{ ct_family }} : install repo source'
-  template:
+- name: "Install repo source for {{ ct_family }}"
+  ansible.builtin.template:
     src: datadog.repo.j2
     dest: /etc/yum.repos.d/datadog.repo
-    mode: '0644'
+    mode: "0644"
     owner: root
     group: root
   register: reg_repo
   become: true
-  tags:
-  - ct-datadog
+  tags: [ct-datadog]
 
-- name: '{{ ct_family }} : datadog package'
-  yum:
+- name: "Install datadog package for {{ ct_family }}"
+  ansible.builtin.yum:
     name: datadog-agent
-    state: '{{ datadog_state }}'
+    state: "{{ datadog_state }}"
     enablerepo: datadog
-    disablerepo: '*'
-    update_cache: '{{ reg_repo is changed }}'
+    disablerepo: "*"
+    update_cache: "{{ reg_repo is changed }}"
   become: true
-  tags:
-  - ct-datadog
+  tags: [ct-datadog]
 ...

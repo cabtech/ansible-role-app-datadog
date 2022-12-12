@@ -1,22 +1,19 @@
 ---
 # --------------------------------
 
-- name: 'include {{ ct_family }} tasks'
+- name: "Include {{ ct_family }} tasks"
   include_tasks: setup-{{ ct_family }}.yml
   when:
-  - ct_family == 'debian' or ct_family == 'redhat'
-  tags:
-  - ct-datadog
+  - ct_family == "debian" or ct_family == "redhat"
+  tags: [ct-datadog]
 
-- name: 'install config file'
+- name: "Install config file"
   include_tasks: install_config.yml
-  tags:
-  - ct-datadog
+  tags: [ct-datadog]
 
-- name: 'include post install tasks'
+- name: "Include post install tasks"
   include_tasks: post_tasks.yml
-  tags:
-  - ct-datadog
+  tags: [ct-datadog]
 
 # --------------------------------
 ...

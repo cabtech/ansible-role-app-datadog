@@ -1,78 +1,78 @@
 ---
 # --------------------------------
 
-- name: 'copy over disk config file'
-  copy:
+- name: "Copy over disk config file"
+  ansible.builtin.copy:
     src: disk.yaml
-    dest: '{{ datadog_etc_dir }}/conf.d/disk.d/disk.yaml'
-    mode: '0644'
-    owner: '{{ datadog_owner }}'
-    group: '{{ datadog_group }}'
+    dest: "{{ datadog_etc_dir }}/conf.d/disk.d/disk.yaml"
+    mode: "0644"
+    owner: "{{ datadog_owner }}"
+    group: "{{ datadog_group }}"
   become: true
-  notify: '{{ datadog_handler }}'
+  notify: "{{ datadog_handler }}"
   tags: [ct-datadog]
 
-- name: 'copy over NTP config file'
-  copy:
+- name: "Copy over NTP config file"
+  ansible.builtin.copy:
     src: ntp.yaml
-    dest: '{{ datadog_etc_dir }}/conf.d/ntp.d/ntp.yaml'
-    mode: '0644'
-    owner: '{{ datadog_owner }}'
-    group: '{{ datadog_group }}'
+    dest: "{{ datadog_etc_dir }}/conf.d/ntp.d/ntp.yaml"
+    mode: "0644"
+    owner: "{{ datadog_owner }}"
+    group: "{{ datadog_group }}"
   become: true
-  notify: '{{ datadog_handler }}'
+  notify: "{{ datadog_handler }}"
   tags: [ct-datadog]
 
-- name: 'render system probe config file'
-  template:
+- name: "Render system probe config file"
+  ansible.builtin.template:
     src: system-probe.yaml.j2
-    dest: '{{ datadog_etc_dir }}/system-probe.yaml'
-    mode: '0644'
-    owner: '{{ datadog_owner }}'
-    group: '{{ datadog_group }}'
+    dest: "{{ datadog_etc_dir }}/system-probe.yaml"
+    mode: "0644"
+    owner: "{{ datadog_owner }}"
+    group: "{{ datadog_group }}"
   become: true
-  notify: '{{ datadog_handler }}'
+  notify: "{{ datadog_handler }}"
   tags: [ct-datadog]
 
-- name: 'add docker group to OS'
-  group:
+- name: "Add docker group to OS"
+  ansible.builtin.group:
     name: docker
     state: present
   when: datadog_add_docker_group
   become: true
   tags: [ct-datadog]
 
-- name: 'add {{ datadog_owner }} to docker OS group'
-  user:
+- name: "Add {{ datadog_owner }} to docker OS group"
+  ansible.builtin.user:
     append: true
     groups: docker
-    name: '{{ datadog_owner }}'
+    name: "{{ datadog_owner }}"
     state: present
   when:
   - datadog_add_docker_group
-  - (ct_container|default('null')) == 'docker'
+  - (ct_container|default("null")) == "docker"
   become: true
   tags: [ct-datadog]
 
-- name: 'copy over Docker daemon config file'
-  copy:
+- name: "Copy over Docker daemon config file"
+  ansible.builtin.copy:
     src: docker_daemon.yaml
-    dest: '{{ datadog_etc_dir }}/conf.d/docker.d/docker_daemon.yaml'
-    mode: '0644'
-    owner: '{{ datadog_owner }}'
-    group: '{{ datadog_group }}'
-  when: (ct_container|default('null')) == 'docker'
+    dest: "{{ datadog_etc_dir }}/conf.d/docker.d/docker_daemon.yaml"
+    mode: "0644"
+    owner: "{{ datadog_owner }}"
+    group: "{{ datadog_group }}"
+  when: (ct_container|default("null")) == "docker"
   become: true
-  notify: '{{ datadog_handler }}'
+  notify: "{{ datadog_handler }}"
   tags: [ct-datadog]
 
-- name: 'install logrotate config'
-  copy:
+- name: "Install logrotate config"
+  ansible.builtin.copy:
     src: logrotate
     dest: /etc/logrotate.d/datadog
     owner: root
     group: root
-    mode: '0644'
+    mode: "0644"
   become: true
   tags: [ct-datadog]
 

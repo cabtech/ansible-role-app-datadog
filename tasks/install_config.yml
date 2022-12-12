@@ -1,15 +1,14 @@
 ---
-- name: 'render template for DataDog config file'
-  template:
+- name: "Render template for DataDog config file (no_log)"
+  ansible.builtin.template:
     src: datadog.yaml.j2
-    dest: '{{ datadog_cfg_file }}'
-    mode: '0644'
-    owner: '{{ datadog_owner }}'
-    group: '{{ datadog_group }}'
-  when: datadog_state == 'present'
+    dest: "{{ datadog_cfg_file }}"
+    mode: "0600"
+    owner: "{{ datadog_owner }}"
+    group: "{{ datadog_group }}"
+  when: datadog_state == "present"
   become: true
-  notify: '{{ datadog_handler }}'
+  notify: "{{ datadog_handler }}"
   no_log: true
-  tags:
-  - ct-datadog
+  tags: [ct-datadog]
 ...
