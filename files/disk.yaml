@@ -6,6 +6,7 @@ instances:
   file_system_whitelist:
   - ext[34]$
   - tmpfs$
+  - xfs$
   file_system_blacklist:
   - loopfs$
   tag_by_filesystem: true
