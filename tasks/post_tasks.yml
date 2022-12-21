@@ -40,7 +40,8 @@
   ansible.builtin.group:
     name: docker
     state: present
-  when: datadog_add_docker_group
+  when:
+  - datadog_enable_docker
   become: true
   tags: [ct-datadog]
 
@@ -51,7 +52,6 @@
     name: "{{ datadog_owner }}"
     state: present
   when:
-  - datadog_add_docker_group
   - datadog_enable_docker
   become: true
   tags: [ct-datadog]
