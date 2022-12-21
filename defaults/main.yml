@@ -1,20 +1,26 @@
 ---
+# --------------------------------
+
 datadog_add_docker_group: false
 datadog_agent_enabled: true
 datadog_agent_status: started
 datadog_agent_version: 7
 datadog_arch: x86_64
-datadog_cfg_file: '{{ datadog_etc_dir }}/datadog.yaml'
+datadog_cfg_file: "{{ datadog_etc_dir }}/datadog.yaml"
+datadog_enable_disks: true
+datadog_enable_docker: false
+datadog_enable_processes: false
 datadog_enable_system_probe: false
-datadog_endpoint: 'app.datadoghq.eu'
+datadog_endpoint: "app.datadoghq.eu"
 datadog_etc_dir: /etc/datadog-agent
 datadog_group: dd-agent
 datadog_handler: Handler_Restart_Datadog
 datadog_owner: dd-agent
-datadog_proc_monitoring: false
 datadog_pubkey_id: 382E94DE
 datadog_repo_url: datadoghq.com
-datadog_rpm_key: 'CURRENT'
+datadog_rpm_key: "CURRENT"
 datadog_state: present
 datadog_svc_name: datadog-agent
+
+# --------------------------------
 ...

@@ -5,7 +5,7 @@ dd_url: https://{{ datadog_endpoint }}
 hostname: {{ inventory_hostname }}
 #
 process_config:
-  enabled: "{{ datadog_proc_monitoring | bool | lower }}"
+  enabled: "{{ datadog_enable_processes | bool | lower }}"
 #
 tags:
 {% if hostvars[inventory_hostname]['datadog'] is defined %}
@@ -27,7 +27,7 @@ tags:
 - zzdummy:whatever
 {% endif %}
 #
-{% if (ct_container | default('SKIP')) == 'docker' %}
+{% if datadog_enable_docker %}
 logs_enabled: true
 listeners:
   - name: docker

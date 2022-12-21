@@ -8,8 +8,10 @@
     mode: "0644"
     owner: "{{ datadog_owner }}"
     group: "{{ datadog_group }}"
-  become: true
+  when:
+  - datadog_enable_disks
   notify: "{{ datadog_handler }}"
+  become: true
   tags: [ct-datadog]
 
 - name: "Copy over NTP config file"
@@ -50,7 +52,7 @@
     state: present
   when:
   - datadog_add_docker_group
-  - (ct_container|default("null")) == "docker"
+  - datadog_enable_docker
   become: true
   tags: [ct-datadog]
 
@@ -61,7 +63,8 @@
     mode: "0644"
     owner: "{{ datadog_owner }}"
     group: "{{ datadog_group }}"
-  when: (ct_container|default("null")) == "docker"
+  when:
+  - datadog_enable_docker
   become: true
   notify: "{{ datadog_handler }}"
   tags: [ct-datadog]
