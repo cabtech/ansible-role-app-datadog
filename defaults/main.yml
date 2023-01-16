@@ -8,6 +8,7 @@ datadog_arch: x86_64
 datadog_cfg_file: "{{ datadog_etc_dir }}/datadog.yaml"
 datadog_enable_disks: true
 datadog_enable_docker: false
+datadog_enable_docker_logs: false  # not available on free-tier and only used if datadog_enable_docker
 datadog_enable_processes: false
 datadog_enable_system_probe: false
 datadog_endpoint: "app.datadoghq.eu"
