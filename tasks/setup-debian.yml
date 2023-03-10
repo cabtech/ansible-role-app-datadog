@@ -60,22 +60,9 @@
   become: true
   tags: [ct-datadog]
 
-- name: "Render template for DataDog config file (no_log)"
-  ansible.builtin.template:
-    dest: "{{ datadog_cfg_file }}"
-    group: "{{ datadog_group }}"
-    mode: "0600"
-    owner: "{{ datadog_owner }}"
-    src: datadog.yaml.j2
-  when: datadog_state == "present"
-  no_log: true
-  notify: "{{ datadog_handler }}"
-  become: true
-  tags: [ct-datadog]
-
 # --------------------------------
 
-- name: "Configure DataDog service status={{ datadog_agent_status }} enabled={{ datadog_agent_enabled | ternary(false, true) }}"
+- name: "Configure DataDog service"
   ansible.builtin.systemd:
     enabled: "{{ datadog_agent_enabled }}"
     masked: "{{ datadog_agent_enabled | ternary(false, true) }}"
