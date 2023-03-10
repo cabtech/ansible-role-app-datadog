@@ -1,3 +1,3 @@
 lint:
 	yamllint -c .config/yamllint .
-	ansible-lint
+	ansible-lint --config-file=.config/ansible-lint.yml
