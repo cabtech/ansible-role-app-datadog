@@ -9,7 +9,7 @@ dependencies:
 galaxy_info:
   author: Tim Short
   description: Manages Datadog agent
-  galaxy_tags: [monitoring]
+  galaxy_tags: [datadog, monitoring]
   license: GPL v3
   role_name: ansible_role_app_datadog
   min_ansible_version: "2"
