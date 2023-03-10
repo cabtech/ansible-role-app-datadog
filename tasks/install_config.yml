@@ -7,8 +7,8 @@
     owner: "{{ datadog_owner }}"
     group: "{{ datadog_group }}"
   when: datadog_state == "present"
-  become: true
   notify: "{{ datadog_handler }}"
   no_log: true
+  become: true
   tags: [ct-datadog]
 ...

@@ -23,11 +23,16 @@ Installs and enables a DataDog agent
 | datadog_etc_dir | path | /etc/datadog-agent | would only change if Datadog changed things |
 | datadog_group | username | dd-agent | would only change if Datadog changed things |
 | datadog_handler | string | handler_restart_datadog | |
+| datadog_keyring | UnixPath | /usr/share/keyrings/datadog-archive-keyring.gpg ||
 | datadog_owner | username | dd-agent | would only change if Datadog changed things |
-| datadog_pubkey_id | string | 382E94DE | Used for APT repo |
+| datadog_pkg_dependencies | list(string) | see `defaults/main.yml` | things DD depends on |
+| datadog_pkg_names | list(string) | see `defaults/main.yml` | main DD packages |
+| datadog_pubkey_id | string | 382E94DE | DEPRECATED.  Was used for APT repo |
+| datadog_repo_keys | list(URL) | see `defaults/main.yml` | repo keys we need to validate repo downloads |
 | datadog_repo_url | FQDN| datadoghq.com | Used for YUM repo |
 | datadog_state | Boolean | present | set to absent to uninstall |
-| datadog_svc_name | username | datadog-agent | would only change if Datadog changed things |
+| datadog_svc_name | string | datadog-agent | would only change if Datadog changed things |
+
 
 ## Optional variables
 | Name | Type | Description |
