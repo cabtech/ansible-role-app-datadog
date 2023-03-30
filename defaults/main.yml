@@ -11,7 +11,7 @@ datadog_enable_docker: false
 datadog_enable_docker_logs: false  # not available on free-tier and only used if datadog_enable_docker
 datadog_enable_processes: false
 datadog_enable_system_probe: false
-datadog_endpoint: "https://app.datadoghq.eu" # US based -> "https://datadoghq.com"
+datadog_endpoint: "https://app.datadoghq.eu"  # if US based "https://datadoghq.com"
 datadog_etc_dir: /etc/datadog-agent
 datadog_group: dd-agent
 datadog_handler: Handler_Restart_Datadog
