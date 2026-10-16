@@ -11,7 +11,7 @@
   tags: [ct-datadog]
 
 - name: "Install datadog package for {{ ct_family }}"
-  ansible.builtin.yum:
+  ansible.builtin.dnf:
     name: datadog-agent
     state: "{{ datadog_state }}"
     enablerepo: datadog
