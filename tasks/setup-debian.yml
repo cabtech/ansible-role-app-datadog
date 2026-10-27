@@ -6,8 +6,8 @@
     datadog_handler: Handler_Restart_Datadog_Old
     datadog_svc_name: datadog-agent
   when:
-  - ct_distro == "ubuntu"
-  - ct_distro_major|int == 14
+  - ansible_facts['distribution'] == "Ubuntu"
+  - ansible_facts['distribution_major_version']|int == 14
   tags: [ct-datadog]
 
 - name: "Update package cache and install pre-requisites"

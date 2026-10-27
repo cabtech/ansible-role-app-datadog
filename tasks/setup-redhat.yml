@@ -1,5 +1,5 @@
 ---
-- name: "Install repo source for {{ ct_family }}"
+- name: "Install repo source for {{ ansible_facts['os_family'] | lower }}"
   ansible.builtin.template:
     src: datadog.repo.j2
     dest: /etc/yum.repos.d/datadog.repo
@@ -10,7 +10,7 @@
   become: true
   tags: [ct-datadog]
 
-- name: "Install datadog package for {{ ct_family }}"
+- name: "Install datadog package for {{ ansible_facts['os_family'] | lower }}"
   ansible.builtin.dnf:
     name: datadog-agent
     state: "{{ datadog_state }}"
