@@ -1,5 +1,4 @@
 # ansible-role-app-datadog
-.alint
-.ylint
+.lint*
 .ansible/
 src/
