@@ -10,5 +10,5 @@
   become: true
   become_user: "{{ datadog_owner }}"
   when: false
-  tags: skip_ansible_lint
+  tags: ["ct-datadog", "skip_ansible_lint"]
 ...

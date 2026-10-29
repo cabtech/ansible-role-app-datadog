@@ -8,7 +8,7 @@
   when:
   - ansible_facts['distribution'] == "Ubuntu"
   - ansible_facts['distribution_major_version']|int == 14
-  tags: [ct-datadog]
+  tags: ["ct-datadog"]
 
 - name: "Update package cache and install pre-requisites"
   ansible.builtin.apt:
@@ -16,7 +16,7 @@
     state: present
     update_cache: false
   become: true
-  tags: [ct-datadog]
+  tags: ["ct-datadog"]
 
 # --------------------------------
 
@@ -28,7 +28,7 @@
     url: "{{ item }}"
   loop: "{{ datadog_repo_keys }}"
   become: true
-  tags: ["ct-envoy"]
+  tags: ["ct-datadog"]
 
 - name: "Add public key of DataDog repo"
   ansible.builtin.apt_key:
@@ -38,7 +38,7 @@
     validate_certs: true
   when: false  # deprecated 10 March 2023
   become: true
-  tags: [ct-datadog]
+  tags: ["ct-datadog"]
 
 - name: "Add DataDog repository"
   ansible.builtin.apt_repository:
@@ -48,7 +48,7 @@
     update_cache: true
     validate_certs: true
   become: true
-  tags: [ct-datadog]
+  tags: ["ct-datadog"]
 
 # --------------------------------
 
@@ -58,7 +58,7 @@
     state: "{{ datadog_state }}"
   ignore_errors: "{{ ansible_check_mode }}"
   become: true
-  tags: [ct-datadog]
+  tags: ["ct-datadog"]
 
 # --------------------------------
 
@@ -73,7 +73,7 @@
   - "{{ datadog_svc_name }}"
   - "datadog-agent-process"
   - "datadog-agent-trace"
-  tags: [ct-datadog]
+  tags: ["ct-datadog"]
 
 # --------------------------------
 ...

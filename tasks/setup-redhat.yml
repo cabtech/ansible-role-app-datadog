@@ -8,7 +8,7 @@
     group: root
   register: reg_repo
   become: true
-  tags: [ct-datadog]
+  tags: ["ct-datadog"]
 
 - name: "Install datadog package for {{ ansible_facts['os_family'] | lower }}"
   ansible.builtin.dnf:
@@ -18,5 +18,5 @@
     disablerepo: "*"
     update_cache: "{{ reg_repo is changed }}"
   become: true
-  tags: [ct-datadog]
+  tags: ["ct-datadog"]
 ...
