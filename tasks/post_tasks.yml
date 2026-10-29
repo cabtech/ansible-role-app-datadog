@@ -45,7 +45,7 @@
   become: true
   tags: ["ct-datadog"]
 
-- name: "Add {{ datadog_owner }} to docker OS group"
+- name: "Add Datadog account to docker OS group"
   ansible.builtin.user:
     append: true
     groups: docker

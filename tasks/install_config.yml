@@ -1,5 +1,5 @@
 ---
-- name: "Render template for DataDog config file (no_log)"
+- name: "Render template for DataDog config file (NL)"
   ansible.builtin.template:
     dest: "{{ datadog_cfg_file }}"
     group: "{{ datadog_group }}"
