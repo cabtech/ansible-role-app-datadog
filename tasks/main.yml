@@ -18,12 +18,6 @@
       - "default.yml"
   tags: ["ct-datadog"]
 
-- name: "Include {{ ansible_facts['os_family'] | lower }} tasks"
-  ansible.builtin.include_tasks: setup-{{ ansible_facts['os_family'] | lower }}.yml
-  when:
-  - ansible_facts['os_family'] == "Debian" or ansible_facts['os_family'] == "RedHat"
-  tags: ["ct-datadog"]
-
 - name: "Install config file"
   ansible.builtin.include_tasks: install_config.yml
   tags: ["ct-datadog"]
